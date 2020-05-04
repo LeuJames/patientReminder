@@ -1,0 +1,36 @@
+Features:
+-multiple login types (phys vs pt)
+-form validation
+-Auto update task status based on viewing page
+-styling based on task status
+-select list of distint tasks
+-last page stored in session so you can use the same route on multiple pages and be redirected back to the page you were on (could be replaced w/ ajax)
+
+
+
+To-Do's:
+
+-Add Messages Table to DB
+    -create new message form on phys pt's page 
+    -create new message form on pt dashboard
+    -show recent messages on phys dashboard
+    -show messages on pt dashboard
+    -Allow pts to send message attached to reminder
+
+-Many-to-Many Patient Physician relationship
+
+-Django-crontab
+    -batch daily update of DB to check for due tasks
+    -Automatically generate message from phys to pt when reminder is due
+    -send e-mail when due
+
+-Ajax/Jquery
+    - completed/delete tasks
+    - search filter on patient list (key up)
+    - show/hide completed on task table for patient page
+    - sort functionality on tables
+
+-Admin
+    -create admin for adding physicians
+    -remove phys registration
+

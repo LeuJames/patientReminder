@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Task</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"></head>
+<body>
+    <div class="container">
+        <div class="navbar navbar-expand bg-dark">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="navbar-brand" href="/physDashboard">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/newTask">Create Patient Task</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/physLogout">Logout</a>
+                </li>
+            </ul>
+        </div>
+        <div class="jumbotron">
+                <h1>Create a new patient task</h1>
+                {% if messages %}
+                <ul class="messages">    
+                    {% for message in messages %}    
+                        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                <form action="/createTask" method="POST">
+                    {% csrf_token %}
+                    <p> Patient:
+                        <select name="pt" id="">
+                            <option value="none" selected disabled hidden> 
+                                Select from Patients
+                            </option>
+                            {% for pt in physPts %}
+                            <option value="{{pt.id}}">{{pt.f_name}} {{pt.l_name}}</option>
+                            {% endfor %}
+                        </select>
+                    </p>
+                    <p>Task Item:</p>
+                    <p class="ml-5">Choose from the list:
+                        <select name="taskSelect" id="">
+                            <option value="none" selected disabled hidden> 
+                                Existing Tasks
+                            </option>
+                            {% for task in physTasks %}
+                            <option value="{{task}}">{{task}}</option>
+                            {% endfor %}
+                        </select>
+                    </p>
+                    <p class="ml-5">Or add a new task: <input type="text" name="taskInput"></p>
+                    <p>Description:</p>
+                    <textarea name="desc" id="" cols="35" rows="10" placeholder="Enter description here"></textarea>
+                    <p>Due Date: <input type="date" name="date"></p>
+                    <p><button type="Submit">Create Task</button></p>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

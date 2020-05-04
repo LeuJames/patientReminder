@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Physician Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        .Due {
+            background-color: rgb(243, 156, 156);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+            <div class="navbar navbar-expand bg-dark">
+                    <ul class="navbar-nav">
+                        <li class="nav-item active">
+                            <a class="navbar-brand" href="/physDashboard">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/newTask">Create Patient Task</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/physLogout">Logout</a>
+                        </li>
+                    </ul>
+            </div>
+        <div class="jumbotron">
+            <h1>Welcome Dr. {{ phys.f_name}} {{ phys.l_name}}!</h1>
+            <div class="row">
+                <div class="col">
+                    <h2>Your Patients:</h2>
+                        <ul>
+                            {% for pt in physPts %}
+                            <li><a href="/patient/{{pt.id}}">{{pt.f_name}} {{pt.l_name}}</a></li>
+                            {% endfor %}
+                        </ul>
+                </div>
+                <div class="col-9">
+                    <h2>Patient Tasks:</h2>
+                    <table class="table table-striped">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Status</th>
+                                <th scope="col">Patient</th>
+                                <th scope="col">Due Date</th>
+                                <th scope="col">Task Item</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for task in physTasks %}
+                            <tr>
+                                <td class="{{task.status}}"> {{task.status}}</td>
+                                <td><a href="/patient/{{task.pt.id}}">{{task.pt.f_name}} {{task.pt.l_name}}</a></td>
+                                <td>{{task.date}}</td>
+                                <td>{{task.task}}</td>
+                                <td>{{task.desc}}</td>
+                                <td>
+                                    <p><a href="/complete/{{task.id}}">Completed</a></p>
+                                    <p><a href="/delete/{{task.id}}">Delete</a></p>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</body>
+</html>

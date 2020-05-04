@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        .Due {
+            background-color: rgb(243, 156, 156);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+            <div class="navbar navbar-expand bg-dark">
+                    <ul class="navbar-nav">
+                        <li class="nav-item active">
+                            <a class="navbar-brand" href="/ptDashboard">Home</a>
+                        </li>
+                        <!-- <li class="nav-item">
+                            <a class="nav-link active" href="/books/add">Contact your Physician</a>
+                        </li> -->
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/ptLogout">Logout</a>
+                        </li>
+                    </ul>
+            </div>
+        <div class="jumbotron">
+            <h1>Welcome {{ pt.f_name }} {{ pt.l_name }}!</h1>
+            <h5>Your Physician: Dr. {{pt.phys.f_name}} {{pt.phys.l_name}}</h5>
+            <div>
+                <h2>Your Tasks:</h2>
+                <table class="table table-striped">
+                    <thead class="thead-dark">
+                        <th scope="col">Status</th>
+                        <th scope="col">Due Date</th>
+                        <th scope="col">To Do</th>
+                        <th scope="col">Physician Description</th>
+                    </thead>
+                    <tbody>
+                        {% for task in ptTasks %}
+                        <tr>
+                            <td class="{{task.status}}">{{task.status}}</td>
+                            <td>{{task.date}}</td>
+                            <td>{{task.task}}</td>
+                            <td>{{task.desc}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <!-- <div>
+                <h2>Messages from Physician:</h2>
+                <table class="table table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Date</th>
+                            <th scope="col">Message</th>
+                            <th scope="col">Reply</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>date</td>
+                            <td>message</td>
+                            <td>reply link</td>
+                        </tr>
+                        <tr>
+                            <td>date</td>
+                            <td>message</td>
+                            <td>reply link</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div> -->
+        </div>
+    </div>
+</body>
+</html>

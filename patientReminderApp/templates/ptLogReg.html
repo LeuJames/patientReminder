@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Login</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <div class="navbar navbar-expand bg-dark">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="navbar-brand" href="/ptDashboard">Home</a>
+                    </li>
+                    <!-- <li class="nav-item">
+                        <a class="nav-link active" href="/books/add">Contact your Physician</a>
+                    </li> -->
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/ptLogout">Logout</a>
+                    </li>
+                </ul>
+        </div>
+    <h1 class="row">Welcome to the Patient Task System!</h1>
+    <h2 class="row">Please register or login below to get started</h2>
+    <p><a href="/physLogReg">Click here for physician registration & login</a></p>
+    <div class="container row jumbotron">
+
+        <div class="col">
+            <h3>Patient Registration</h3>
+            {% if messages %}
+            <ul class="messages">    
+                {% for message in messages %} 
+                    {% if 'register' in message.extra_tags %}
+                        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>  
+                    {% endif %}  
+                {% endfor %}
+            </ul>
+            {% endif %}            
+            <form action="/ptRegister" method="POST">
+            {% csrf_token %}
+            <p>First Name: <input type="text" name="f_name"></p>
+            <p>Last Name: <input type="text" name="l_name"></p>
+            <p> Physician:
+                <select name="phys" id="">
+                    <option value="" selected hidden> 
+                        Select from Physicians
+                    </option>
+                    {% for phys in allPhys %}
+                    <option value="{{phys.id}}">Dr. {{phys.f_name}} {{phys.l_name}}</option>
+                    {% endfor %}
+                </select>
+            </p>
+            <p>Date of Birth: <input type="date" name="dob"></p>
+            <p>Email: <input type="text" name="email"></p>
+            <p>Password: <input type="password" name="pw"></p>
+            <p>Confirm Password: <input type="password" name="confirm_pw"></p>
+            <button type="submit">Register</button>
+            </form>
+        </div>
+        <div class="col">
+            <h3>Patient Login</h3>
+            {% if messages %}
+            <ul class="messages">    
+                {% for message in messages %}
+                    {% if 'login' in message.extra_tags %}    
+                        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            {% endif %}
+            <form action="/ptLogin" method="POST">
+            {% csrf_token %}
+            <p>Email: <input type="text" name="email"></p>
+            <p>Password: <input type="password" name="pw"></p>
+            <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
